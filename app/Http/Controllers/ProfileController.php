@@ -18,15 +18,15 @@ class ProfileController extends Controller
     public function show()
     {
         $user = auth()->user();
-    
+
         // Verificar si el usuario tiene una contraseña establecida
         $hasPassword = ! is_null($user->password);
-    
+
         return view('profile.show', compact('user', 'hasPassword'));
     }
 
     public function edit(Request $request): View
-    {   
+    {
         $user = Auth::user();
 
         $hasPassword = ! is_null($user->password);
@@ -48,7 +48,7 @@ class ProfileController extends Controller
             'licencia' => ['nullable', 'string', 'max:255'],
             'numero_licencia' => ['nullable', 'string', 'max:255'],
         ]);
-        
+
         $request->user()->fill([
             'name' => $request->name,
             'edad' => $request->edad,
@@ -65,8 +65,8 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-    
-    
+
+
 
     /**
      * Delete the user's account.

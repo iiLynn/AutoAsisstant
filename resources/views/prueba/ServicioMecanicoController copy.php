@@ -69,14 +69,15 @@ class ServicioMecanicoController extends Controller
 
             $validator = Validator::make($request->all(),[
 
-
+                'nombreTaller' => ['nullable', 'string', 'max:224'],
+                'representante' => ['required', 'string', 'max:225'],
                 'fechaInicio' => ['required', 'string', 'max:226'],
                 'fechaFin' => ['required', 'string', 'max:227'],
                 'numeroContacto' => ['required', 'numeric', 'digits_between:8,15'],
                 'precio' => ['required', 'numeric'],
-                'precioes' => ['required', 'numeric'],
                 'hora1' => ['nullable', 'string', 'max:25'],
                 'hora2' => ['nullable', 'string', 'max:25'],
+                'logo' => ['required', 'image', 'max:2047'],
                 'rubro' => ['required', 'string', 'max:256'],
                 'servicio' => ['required', 'string', 'max:228'],
                 'descripcion' => ['required', 'string', 'max:1000'],
@@ -111,7 +112,30 @@ class ServicioMecanicoController extends Controller
             $acreditacion_4_path = null;
 
 
+            if ($logo) {
+                $logo_path = 'imagenes/serviciosMecanicos/logo/' . time() . '.' . $logo->getClientOriginalExtension();
+                $logo->move(public_path('imagenes/serviciosMecanicos/logo'), $logo_path);
+            }
 
+            if ($acreditacion_1) {
+                $acreditacion_1_path = 'imagenes/serviciosMecanicos/acreditacion_1/' . time() . '.' . $acreditacion_1->getClientOriginalExtension();
+                $acreditacion_1->move(public_path('imagenes/serviciosMecanicos/acreditacion_1'), $acreditacion_1_path);
+            }
+
+            if ($acreditacion_2) {
+                $acreditacion_2_path = 'imagenes/serviciosMecanicos/acreditacion_2/' . time() . '.' . $acreditacion_2->getClientOriginalExtension();
+                $acreditacion_2->move(public_path('imagenes/serviciosMecanicos/acreditacion_2'), $acreditacion_2_path);
+            }
+
+            if ($acreditacion_3) {
+                $acreditacion_3_path = 'imagenes/serviciosMecanicos/acreditacion_3/' . time() . '.' . $acreditacion_3->getClientOriginalExtension();
+                $acreditacion_3->move(public_path('imagenes/serviciosMecanicos/acreditacion_3'), $acreditacion_3_path);
+            }
+
+            if ($acreditacion_4) {
+                $acreditacion_4_path = 'imagenes/serviciosMecanicos/acreditacion_4/' . time() . '.' . $acreditacion_4->getClientOriginalExtension();
+                $acreditacion_4->move(public_path('imagenes/serviciosMecanicos/acreditacion_4'), $acreditacion_4_path);
+            }
 
             $hora1 = $request->input('fechaInicio');
              $hora2 = $request->input('fechaFin');
@@ -119,20 +143,24 @@ class ServicioMecanicoController extends Controller
              $horario = $hora1.$hora2.$dias1;
 
             $servicio = new ServicioMecanico([
-
+                'nombreTaller' => $request->nombreTaller,
+                'representante' => $request->representante,
                 'fechaInicio' => $request->fechaInicio,
                 'fechaFin' => $request->fechaFin,
-                'precioes' => $request->precioes,
+                'numeroContacto' => $request->numeroContacto,
                 'precio' => $request->precio,
                 'hora1' => $request->hora1,
                 'hora2' => $request->hora2,
-
+                'logo' => $logo_path,
                 'rubro' => $request->rubro,
                 'servicios' => $request->servicio,
                 'descripcion' => $request->descripcion,
                 'direccion' => $request->direccion,
                 'tipoServicio' => $request->tipoServicio,
-
+                'acreditacion_1' => $acreditacion_1_path,
+                'acreditacion_2' => $acreditacion_2_path,
+                'acreditacion_3' => $acreditacion_3_path,
+                'acreditacion_4' => $acreditacion_4_path,
                 'id_user' => $id_user,
             ]);
 
@@ -287,7 +315,7 @@ class ServicioMecanicoController extends Controller
             }
 
 
-
+$dd($servicio);
             $servicio->save();
 
             return redirect()->route('servicios-mecanicos.index')->with('success', 'El servicio se ha actualizado correctamente.');

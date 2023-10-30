@@ -9,6 +9,14 @@ use App\Http\Controllers\ServicioMecanicoController;
 use App\Http\Controllers\ContratacionController;
 use App\Http\Controllers\MensajeController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\CulturaController;
+use App\Models\Thesis;
+use App\Http\Controllers\ThesisController;
+use App\Http\Controllers\PerfilController; // Importa el controlador PerfilController
+use App\Http\Controllers\UserController; // Importa el controlador UserController
+use App\Http\Controllers\ServicioMecanico1Controller;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,11 +33,11 @@ Route::get('/', function () {
 });
 
 
- 
+
 Route::get('/google-auth/redirect', function () {
     return Socialite::driver('google')->redirect();
 });
- 
+
 Route::get('/google-auth/callback', function () {
     $user_google = Socialite::driver('google')->stateless()->user();
 
@@ -86,6 +94,9 @@ Route::get('/opciones', function () {
 Route::get('/inicio', function () {
     return view('inicio');
 });
+Route::get('/perfilusu', function () {
+    return view('perfilusu');
+});
 
 Route::get('/funciones', function () {
     return view('funciones');
@@ -110,7 +121,7 @@ Route::get('/opcionesRegistro', function () {
 })->name('opcionesRegistro');
 
 Route::get('/inicio', function() {
-    return view('inicio'); 
+    return view('inicio');
   })->name('inicio');
 
   Route::get('/ServiciosSitio', function () {
@@ -123,8 +134,16 @@ Route::get('/servicios', function() {
   Route::get('/asesoria', function () {
     return view('serviciosMecanicos.asesoria');
 });
-
-
+Route::get('/thesis', function () {
+    $theses = Thesis::all();
+    return view('serviciosMecanicos.thesis')->with('theses',$theses);
+});
+Route::get('/inscripcion1', function () {
+    return view('inser.index');
+});
+Route::get('/ruta_personalizada', function () {
+    // Lógica de tu vista "inscripcion1" o redirección a ella.
+})->name('serviciosMecanicos.inscripcion1');
 
 /*Inscripcion de servicios mecanicos
 Route::get('/requisitos', function () {
@@ -147,6 +166,10 @@ Route::get('/welcome', function () {
     return view('welcome');
 })->middleware(['auth', 'verified'])->name('welcome');
 
+Route::get('/perfil', function () {
+    return view('perfil.index');
+});
+
 
 //Rutas para pilotos
 Route::get('/publicacion', [PublicacionController::class, 'index'])->name('publicaciones.index');
@@ -165,13 +188,29 @@ Route::get('/servicios-mecanicos/{servicio}/edit', [ServicioMecanicoController::
 Route::delete('/servicios-mecanicos/{servicio}', [ServicioMecanicoController::class, 'destroy'])->name('servicios-mecanicos.destroy');
 Route::put('/servicios-mecanicos/{id}', [ServicioMecanicoController::class, 'update'])->name('servicios-mecanicos.update');
 
-//rutas para pilotos 
+//rutas prueba
+Route::get('/inser/index', [ServicioMecanico1Controller::class, 'create'])->name('inser.index');
+Route::post('/inser/index', [ServicioMecanico1Controller::class, 'store'])->name('inser.store');
+Route::post('/inser/index/buscar', [ServicioMecanico1Controller::class, 'buscarServicio'])->name('inser.buscar');
+Route::post('/inser/index/{id}', [ServicioMecanico1Controller::class, 'show'])->name('inser.show');
+Route::post('/inser/index/{servicio}/edit', [ServicioMecanico1Controller::class, 'edit'])->name('inser.edit');
+Route::post('/inser/index/{servicio}', [ServicioMecanico1Controller::class, 'destroy'])->name('inser.index');
+Route::post('/inser/index/{id}', [ServicioMecanico1Controller::class, 'update'])->name('inser.index');
+Route::get('/inser/index', [ServicioMecanico1Controller::class, 'create'])->name('inser.index');
+Route::get('inser/index/{servicio}', 'AlgunController@index')->name('inser.index');
+
+
+
+
+
+//rutas para pilotos
 Route::get('/otra-vista', [PublicacionController::class, 'otraVista'])->name('publicaciones.otravista');
 Route::get('/otra-vista/buscar', [PublicacionController::class, 'buscar'])->name('publicaciones.busscar');
 
+//rutas para cultura
+Route::get('/cultura-s/create', [CulturaController::class, 'create'])->name('cultura.index1');
+Route::get('/cultura.store', [CulturaController::class, ' store'])->name('cultura.index1');
 //rutas para ver mas
-
-
 Route::get('/info/{publicacion}',[PublicacionController::class, 'show'])->name('publicaciones.show1');
 
 //ruta para servicioWeb
@@ -191,6 +230,25 @@ Route::put('/contrataciones/{id}', [ContratacionController::class, 'update'])->n
 
 //Rutas para mensajeria
 Route::get('/mensajeria/{servicioId}', [MensajeController::class, 'index'])->name('mensajeria.index');
+//Rutas prueba
+
+Route::get('/perfilusu', 'TuControlador@mostrarFormulario')->name('mostrarFormulario');
+Route::get('/perfilusu', [TuController::class, 'show'])->name('perfilusu1');
+Route::post('/guardar-datos', 'TuControlador@guardarDatos')->name('guardarDatos');
+
+//rutas manueles
+
+
+Route::get('/manuales', [ThesisController::class, 'index'])->name('manuales.index');
+Route::post('/thesis/register', [ThesisController::class, 'store'])->name('thesis_register');
+Route::get('/thesis/file/{id}', [ThesisController::class, 'urlfile'])->name('thesis_file');
+Route::post('/thesis/update', [ThesisController::class, 'update'])->name('thesis_update');
+Route::get('/thesis/delete/{id}', [ThesisController::class, 'destroy'])->name('thesis_delete');
+
+//rutas perfil
+Route::get('/perfil/index', [PerfilController::class, 'create'])->name('perfil.index');
+Route::get('/perfil/validacion', [PerfilController::class, 'validarperfil'])->name('perfil.validarperfil');
+Route::post('/perfil/store', [PerfilController::class, 'store'])->name('perfil.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');

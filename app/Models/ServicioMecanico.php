@@ -11,19 +11,16 @@ class ServicioMecanico extends Model
     protected $table = 'servicios_mecanicos';
 
     protected $fillable = [
-        'nombreTaller',
-        'representante',
+
         'fechaInicio',
         'fechaFin',
-        'numeroContacto',
+        'precioes',
         'precio',
         'hora1',
         'hora2',
-        'logo',
         'rubro',
         'servicios',
         'descripcion',
-        'direccion',
         'tipoServicio',
         'acreditacion_1',
         'acreditacion_2',
