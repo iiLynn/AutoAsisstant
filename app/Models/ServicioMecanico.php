@@ -19,6 +19,7 @@ class ServicioMecanico extends Model
         'hora1',
         'hora2',
         'rubro',
+        'logo',
         'servicios',
         'descripcion',
         'tipoServicio',

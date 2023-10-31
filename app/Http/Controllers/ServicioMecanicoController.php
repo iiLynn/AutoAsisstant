@@ -76,6 +76,7 @@ class ServicioMecanicoController extends Controller
                 'hora1' => ['nullable', 'string', 'max:25'],
                 'hora2' => ['nullable', 'string', 'max:25'],
                 'rubro' => ['required', 'string', 'max:256'],
+                'logo' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
                 'servicio' => ['required', 'string', 'max:228'],
                 'descripcion' => ['required', 'string', 'max:1000'],
                 'direccion' => ['nullable', 'string', 'max:223'],
@@ -87,7 +88,10 @@ class ServicioMecanicoController extends Controller
             ], [
                 'required' => 'El campo :attribute es obligatorio.',
                 'numeric' => 'El campo :attribute debe ser un número.',
+                'image' => 'El campo :attribute debe ser una imagen valida'
             ]);
+
+            //dd($request->all());
 
             if ($validator->fails()) {
                 // Mostrar los mensajes de error y manejarlos adecuadamente
@@ -108,6 +112,15 @@ class ServicioMecanicoController extends Controller
             $dias1 = $request->input('dayCombinations');
             $horario = $hora1 . $hora2 . $dias1;
 
+            $logo = $request->file('logo');
+            $logo_path = null;
+            
+
+            if ($logo) {
+                $logo_path = 'imagenes/serviciosMecanicos/logo/' . time() . '.' . $logo->getClientOriginalExtension();
+                $logo->move(public_path('imagenes/serviciosMecanicos/logo'), $logo_path);
+            }
+
             $servicio = new ServicioMecanico([
 
                 'fechaInicio' => $request->fechaInicio,
@@ -116,8 +129,8 @@ class ServicioMecanicoController extends Controller
                 'precio' => $request->precio,
                 'hora1' => $request->hora1,
                 'hora2' => $request->hora2,
-
                 'rubro' => $request->rubro,
+                'logo' => $logo_path,
                 'servicios' => $request->servicio,
                 'descripcion' => $request->descripcion,
                 'direccion' => $request->direccion,

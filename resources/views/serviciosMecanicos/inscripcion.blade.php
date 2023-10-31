@@ -41,7 +41,7 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('servicios-mecanicos.store') }}" method="POST">
+    <form action="{{ route('servicios-mecanicos.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <nav>
             <div class="d-flex justify-content-center nav-tabs text-primary" id="nav-tab" role="tablist">
@@ -58,6 +58,18 @@
                 <div class="container py-3">
                     <div class="row">
                         <div class="form-floating col-md-12">
+                            <input type="file" class="form-control" id="logo" name="logo"
+                                accept=".png, .jpg, .jpeg">
+                            <label for="logo">Logo</label>
+                            @error('logo')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <x-input-error :messages="$errors->get('logo')" class="alert alert-danger" role="alert" />
+                        </div>
+
+                        <div class="form-floating col-md-12 mt-3">
                             <select id="rubro" name="rubro" class="form-select">
                                 <option disabled selected>Rubro...</option>
                                 <option value="Mecanico">Mecanico</option>
@@ -171,15 +183,6 @@
                         @if (session('error'))
                             <div class="alert alert-danger">
                                 {{ session('error') }}
-                            </div>
-                        @endif
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
                             </div>
                         @endif
 
