@@ -26,13 +26,20 @@ class ServicioMecanico extends Model
         'acreditacion_2',
         'acreditacion_3',
         'acreditacion_4',
-        'id_user',
+        'id_perfil',
+        'id_user'
 
     ];
 
     public function contrataciones()
     {
         return $this->hasMany(Contratacion::class);
+    }
+
+    // En el modelo ServicioMecanico
+    public function perfil()
+    {
+        return $this->belongsTo(perfil::class, 'id_perfil');
     }
 
 }
