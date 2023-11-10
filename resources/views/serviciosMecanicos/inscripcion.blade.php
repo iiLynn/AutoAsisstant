@@ -11,6 +11,19 @@
         color: #ffffff !important;
         background-color: #858484 !important;
         border-color: #dee2e6 #dee2e6 #fff !important;
+        min-width: 500px;
+        /* Ajusta el ancho mínimo según tus preferencias */
+        padding: 10px;
+        /* Ajusta el espacio alrededor del texto dentro del botón */
+    }
+
+    .center-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+
     }
 </style>
 <x-app-layout>
@@ -43,23 +56,31 @@
     @endif
     <form action="{{ route('servicios-mecanicos.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        <br>
         <nav>
             <div class="d-flex justify-content-center nav-tabs text-primary" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-                    type="button" role="tab" aria-controls="nav-home" aria-selected="true">Descripcion</button>
-                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
-                    type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Montos</button>
+                <button class="nav-link active col-md-5" id="nav-home-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+                    aria-selected="true">Descripcion</button>
+                <button class="nav-link col-md-5" id="nav-profile-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+                    aria-selected="false">Montos</button>
 
             </div>
         </nav>
-        <div class="tab-content bg-white " id="nav-tabContent">
+        <br>
+        <div class="tab-content bg-white" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
                 tabindex="0">
-                <div class="container py-3">
-                    <div class="row">
-                        <div class="form-floating col-md-12">
+                <div class="container">
+                    <div class="row center-content">
+                        <br>
+                        <br>
+                        <div class="form-floating col-md-7">
+
                             <input type="file" class="form-control" id="logo" name="logo"
                                 accept=".png, .jpg, .jpeg">
+                            <br>
                             <label for="logo">Logo</label>
                             @error('logo')
                                 <span class="invalid-feedback" role="alert">
@@ -69,7 +90,7 @@
                             <x-input-error :messages="$errors->get('logo')" class="alert alert-danger" role="alert" />
                         </div>
 
-                        <div class="form-floating col-md-12 mt-3">
+                        <div class="form-floating col-md-7 mt-3">
                             <select id="rubro" name="rubro" class="form-select">
                                 <option disabled selected>Rubro...</option>
                                 <option value="Mecanico">Mecanico</option>
@@ -84,7 +105,7 @@
                         </div>
 
                         <br>
-                        <div class="form-floating col-md-12 mt-3">
+                        <div class="form-floating col-md-7 mt-3">
                             <select id="servicio" name="servicio" class="form-select">
                                 <option disabled selected>Servicio que Ofrece...</option>
                             </select>
@@ -92,13 +113,13 @@
                             <x-input-error :messages="$errors->get('servicio')" class="alert alert-danger" role="alert" />
                         </div>
                         <br>
-                        <div class="form-floating col-md-12 mt-3">
+                        <div class="form-floating col-md-7 mt-3">
                             <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion" aria-label="Descripcion">{{ old('descripcion') }}</textarea>
                             <label for="descripcion">Descripcion del servicio</label>
                             <x-input-error :messages="$errors->get('descripcion')" class="alert alert-danger" role="alert" />
                         </div>
                         <br>
-                        <div class="form-floating col-md-12 mt-3">
+                        <div class="form-floating col-md-7 mt-3">
                             <select id="tipoServicio" name="tipoServicio" class="form-select">
                                 <option disabled selected>Tipo Servicio...</option>
                                 <option value="Adomicilio">Adomicilio</option>
@@ -107,6 +128,8 @@
                             <label for="tipoServicio">Selecciona un Tipo de Servicio</label>
                             <x-input-error :messages="$errors->get('tipoServicio')" class="alert alert-danger" role="alert" />
                         </div>
+                        <br>
+                        <br>
                     </div>
                 </div>
 
@@ -115,8 +138,9 @@
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
                 tabindex="0">
                 <div class="container py-3">
-                    <div class="row">
-                        <div class="form-floating col-md-12">
+                    <div class="row  center-content">
+                        <br>
+                        <div class="form-floating col-md-7">
 
                             <select id="fechaInicio" name="fechaInicio" class="form-select">
                                 <option value="Lunes">Lunes</option>
@@ -128,8 +152,8 @@
                             <label for="fechaInicio">Horario de Inicio</label>
                             <x-input-error :messages="$errors->get('horarioInicio')" class="alert alert-danger" role="alert" />
                         </div>
-
-                        <div class="form-floating col-md-12 mt-3">
+                        <br>
+                        <div class="form-floating col-md-7 mt-3">
 
                             <select id="fechaFin" name="fechaFin" class="form-select">
                                 <option value="Lunes">Lunes</option>
@@ -141,22 +165,22 @@
                             <label for="fechaFin">Horario de Fin</label>
                             <x-input-error :messages="$errors->get('horarioFin')" class="alert alert-danger" role="alert" />
                         </div>
-
-                        <div class="form-floating col-md-12 mt-3">
+                        <br>
+                        <div class="form-floating col-md-7 mt-3">
                             <input type="text" class="form-control timepicker" id="hora1" name="hora1"
                                 placeholder="Hora 1" aria-label="Hora 1" value="{{ old('hora1') }}">
                             <label for="hora1">Hora de Apertura</label>
                             <x-input-error :messages="$errors->get('hora1')" class="alert alert-danger" role="alert" />
                         </div>
-
-                        <div class="form-floating col-md-12 mt-3">
+                        v <br>
+                        <div class="form-floating col-md-7 mt-3">
                             <input type="text" class="form-control timepicker" id="hora2" name="hora2"
                                 placeholder="Hora 2" aria-label="Hora 2" value="{{ old('hora2') }}">
                             <label for="hora2">Hora de Cierre</label>
                             <x-input-error :messages="$errors->get('hora2')" class="alert alert-danger" role="alert" />
                         </div>
-
-                        <div class="form-floating col-md-12 mt-3">
+                        <br>
+                        <div class="form-floating col-md-7 mt-3">
                             <input type="text" class="form-control" id="precio" name="precio"
                                 placeholder="precio" inputmode="numeric" pattern="[0-9\s]*"
                                 title="Ingresa un formato telefonico valido" aria-label="precio"
@@ -164,8 +188,8 @@
                             <label for="precio">Costo estimado</label>
                             <x-input-error :messages="$errors->get('precio')" class="alert alert-danger" role="alert" />
                         </div>
-
-                        <div class="form-floating col-md-12 mt-3">
+                        <br>
+                        <div class="form-floating col-md-7 mt-3">
                             <input type="text" class="form-control" id="precioes" name="precioes"
                                 placeholder="precio" inputmode="numeric" pattern="[0-9\s]*"
                                 title="Ingresa un formato telefonico valido" aria-label="precio"
@@ -173,7 +197,7 @@
                             <label for="precioes">Costo de Envio</label>
                             <x-input-error :messages="$errors->get('precioes')" class="alert alert-danger" role="alert" />
                         </div>
-
+                        <br>
                         @if (session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
@@ -186,9 +210,10 @@
                             </div>
                         @endif
 
-                        <div class="col-md-12 mt-3 d-flex justify-content-between">
-                            <button type="submit" class="btn btn-primary">Inscribir servicio</button>
+                        <div class="col-md-7 mt-3 d-flex justify-content-between">
                             <a href="{{ route('servicios-mecanicos.index') }}" class="btn btn-danger">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">Inscribir servicio</button>
+
                         </div>
                     </div>
                 </div>

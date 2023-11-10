@@ -15,7 +15,7 @@ use App\Http\Controllers\ThesisController;
 use App\Http\Controllers\PerfilController; // Importa el controlador PerfilController
 use App\Http\Controllers\UserController; // Importa el controlador UserController
 use App\Http\Controllers\ServicioMecanico1Controller;
-
+use App\Http\Controllers\PerfilmecanicoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -249,6 +249,11 @@ Route::get('/thesis/delete/{id}', [ThesisController::class, 'destroy'])->name('t
 Route::get('/perfil/index', [PerfilController::class, 'create'])->name('perfil.index');
 Route::get('/perfil/validacion', [PerfilController::class, 'validarperfil'])->name('perfil.validarperfil');
 Route::post('/perfil/store', [PerfilController::class, 'store'])->name('perfil.store');
+//rutas vista de perfil mecanico
+
+Route::get('/perfilmecanico/index', [PerfilmecanicoController::class, 'create'])->name('perfilmecanico.index');
+Route::get('/perfilmecanico/validacion', [PerfilmecanicoController::class, 'validarperfil'])->name('perfilmecanico.validarperfil');
+Route::post('/perfilmecanico/store', [PerfilmecanicoController::class, 'store'])->name('perfilmecanico.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
