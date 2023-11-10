@@ -6,31 +6,33 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\perfil;
+use App\Models\ServicioMecanico;
+
 class PerfilmecanicoController extends Controller
 {
     public function create()
     {
 
-        return view('perfilmecanico.index');
+        return view('perfilmecanico.perfil');
     }
 
     public function validarperfil()
     {
-  // Obtiene el usuario autenticado
-  $userid=Auth::id();
-  $perfil=perfil::where('id_user',$userid)->first();
+        // Obtiene el usuario autenticado
+        $userid = Auth::id();
+        $perfil = perfil::where('id_user', $userid)->first();
 
-  if($perfil){
-    return redirect()->route('servicios-mecanicos.create');
-  }else{
-    return redirect()->route('perfil.index')->with('error', 'Actualmente no tiene un perfil creado, Crealo pendjo ');
-  }
+        if ($perfil) {
+            return redirect()->route('servicios-mecanicos.create');
+        } else {
+            return redirect()->route('perfil.index')->with('error', 'Actualmente no tiene un perfil creado, Crealo pendjo ');
+        }
 
     }
     public function store(Request $request)
     {
-        try{
-            $userid=Auth::id();
+        try {
+            $userid = Auth::id();
 
             // Valida los datos
             $validator = Validator::make($request->all(), [
@@ -54,11 +56,11 @@ class PerfilmecanicoController extends Controller
 
 
             $perfil = new perfil();
-            $perfil->numerocontacto= $request->input('numerocontacto');
+            $perfil->numerocontacto = $request->input('numerocontacto');
             $perfil->ntaller = $request->input('ntaller');
             $perfil->direccion = $request->input('direccion');
-            $perfil->logo= $logo_path;
-            $perfil->id_user=$userid;
+            $perfil->logo = $logo_path;
+            $perfil->id_user = $userid;
 
             $perfil->save();
 
@@ -66,16 +68,22 @@ class PerfilmecanicoController extends Controller
         } catch (QueryException $e) {
             Session::flash('error', 'Se produjo un error en el servidor. Por favor, inténtalo de nuevo más tarde.');
             return redirect()->back();
-    }
-    }
-    public function showProfile()
-    {
-        if (Auth::check()) {
-            $user = Auth::user();
-            return view('perfil.index', compact('user'));
-        } else {
-            // Redirige al inicio de sesión o muestra un mensaje de error.
         }
     }
+    public function showProfile($id)
+    {
+        try {
+            $perfil = Perfil::findOrFail($id);
+            $idPerfil = $perfil->id;
+
+            $serviciosPerfil = ServicioMecanico::where('id_perfil', $idPerfil)->get();
+
+            return view('perfilmecanico.perfil', compact('perfil', 'serviciosPerfil'));
+        } catch (\Exception $e) {
+            // Manejar el error, por ejemplo redirigir a una página de error o mostrar un mensaje amigable.
+            return redirect()->route('error')->with('error', 'Perfil no encontrado');
+        }
+    }
+
 
 }

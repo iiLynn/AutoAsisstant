@@ -42,14 +42,17 @@ Route::get('/google-auth/callback', function () {
     $user_google = Socialite::driver('google')->stateless()->user();
 
     // $user->token
-    $user = User::updateOrCreate([
-        'google_id' => $user_google->id,
-    ],
-    [
-        'name' => $user_google->name,
-        'email' => $user_google->email,
-        'email_verified_at' => now(), // establece la fecha de verificación del correo electrónico
-    ]);
+    $user = User::updateOrCreate(
+        [
+            'google_id' => $user_google->id,
+        ],
+        [
+            'name' => $user_google->name,
+            'email' => $user_google->email,
+            'email_verified_at' => now(),
+            // establece la fecha de verificación del correo electrónico
+        ]
+    );
 
     // Verificar si falta el campo 'rol' en la tabla 'users'
     if (empty($user->rol)) {
@@ -58,9 +61,9 @@ Route::get('/google-auth/callback', function () {
 
 
     Auth::login($user);
-    if(Auth::check()){
+    if (Auth::check()) {
         return redirect('/email/verify');
-    }else{
+    } else {
         return back()->with('error', 'Hubo un error al autenticar al usuario. Por favor, inténtalo de nuevo.');
     }
     /*
@@ -120,23 +123,23 @@ Route::get('/opcionesRegistro', function () {
     return view('mario');
 })->name('opcionesRegistro');
 
-Route::get('/inicio', function() {
+Route::get('/inicio', function () {
     return view('inicio');
-  })->name('inicio');
+})->name('inicio');
 
-  Route::get('/ServiciosSitio', function () {
+Route::get('/ServiciosSitio', function () {
     return view('serviciosMecanicos.ServiciosSitio');
 });
-Route::get('/servicios', function() {
+Route::get('/servicios', function () {
     return view('ServiciosSitio');
-  })->name('servicios');
+})->name('servicios');
 
-  Route::get('/asesoria', function () {
+Route::get('/asesoria', function () {
     return view('serviciosMecanicos.asesoria');
 });
 Route::get('/thesis', function () {
     $theses = Thesis::all();
-    return view('serviciosMecanicos.thesis')->with('theses',$theses);
+    return view('serviciosMecanicos.thesis')->with('theses', $theses);
 });
 Route::get('/inscripcion1', function () {
     return view('inser.index');
@@ -176,7 +179,7 @@ Route::get('/publicacion', [PublicacionController::class, 'index'])->name('publi
 Route::get('/publicaciones/create', [PublicacionController::class, 'create'])->name('publicaciones.create');
 Route::post('/publicaciones', [PublicacionController::class, 'store'])->name('publicaciones.store');
 Route::get('/publicaciones/buscar', [PublicacionController::class, 'buscar'])->name('publicaciones.buscar');
-Route::get('/publicaciones/{publicacion}',[PublicacionController::class, 'show'])->name('publicaciones.show');
+Route::get('/publicaciones/{publicacion}', [PublicacionController::class, 'show'])->name('publicaciones.show');
 
 //Rutas para servicios mecanicos
 Route::get('/servicios-mecanicos', [ServicioMecanicoController::class, 'index'])->name('servicios-mecanicos.index');
@@ -211,7 +214,7 @@ Route::get('/otra-vista/buscar', [PublicacionController::class, 'buscar'])->name
 Route::get('/cultura-s/create', [CulturaController::class, 'create'])->name('cultura.index1');
 Route::get('/cultura.store', [CulturaController::class, ' store'])->name('cultura.index1');
 //rutas para ver mas
-Route::get('/info/{publicacion}',[PublicacionController::class, 'show'])->name('publicaciones.show1');
+Route::get('/info/{publicacion}', [PublicacionController::class, 'show'])->name('publicaciones.show1');
 
 //ruta para servicioWeb
 Route::get('/servicios-internos', [ServicioMecanicoController::class, 'indexInterno'])->name('servicios-mecanicos.indexinterno');
@@ -254,6 +257,7 @@ Route::post('/perfil/store', [PerfilController::class, 'store'])->name('perfil.s
 Route::get('/perfilmecanico/index', [PerfilmecanicoController::class, 'create'])->name('perfilmecanico.index');
 Route::get('/perfilmecanico/validacion', [PerfilmecanicoController::class, 'validarperfil'])->name('perfilmecanico.validarperfil');
 Route::post('/perfilmecanico/store', [PerfilmecanicoController::class, 'store'])->name('perfilmecanico.store');
+Route::get('/perfilmecanico/{id}', [PerfilmecanicoController::class, 'showProfile'])->name('perfilmecanico.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
@@ -262,4 +266,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
