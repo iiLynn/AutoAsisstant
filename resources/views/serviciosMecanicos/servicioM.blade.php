@@ -48,33 +48,30 @@
             </div>
         </div>
         <div class="col col-md-10">
-            <div class="grid container d-flex flex-row flex-wrap">
+            <div class="container d-flex flex-row flex-wrap">
                 @if ($serviciosMecanicos && $serviciosMecanicos->count() > 0)
                     @foreach ($serviciosMecanicos as $index => $servicio)
-                        <div class="col-md-3 mb-3">
-                            <div class="card resultados"
+                        <div class="col-md-3 mb-3 servicio-card {{ $servicio->rubro }}">
+                            <div class="card"
                                 style="background:transparent; border: solid blue; height:450px; width:245px;">
-                                <div class="grid-item grid-item-{{ $index }}" data-rubro="{{ $servicio->rubro }}"
-                                    data-servicios="{{ json_encode($servicio->servicios) }}">
-
-                                    <a href="{{ route('servicios-mecanicos.show', $servicio->id) }}">
-                                        <div class="text-center">
-                                            <img src="{{ $servicio->logo }}" class="img-thumbnail" alt="IMG_SERVICIO"
-                                                style="height:234px; width:234px;">
-                                        </div>
-                                        <div class="card-body pt-0">
-                                            <h5 class="card-title">{{ $servicio->representante }}</h5>
-                                            <p class="card-text text-white">Rubro: {{ $servicio->rubro }}</p>
-                                            <p class="card-text text-white">Servicio: {{ $servicio->servicios }}</p>
-                                            <p class="card-text text-white">Tipo de servicio:
-                                                {{ $servicio->tipoServicio }}
-                                            </p>
-                                            <p class="card-text text-white">Costo estimado:
-                                                ${{ $servicio->precio }}
-                                            </p>
-                                        </div>
-                                        </b>
-                                </div>
+                                <a href="{{ route('servicios-mecanicos.show', $servicio->id) }}">
+                                    <div class="text-center">
+                                        <img src="{{ $servicio->logo }}" class="img-thumbnail" alt="IMG_SERVICIO"
+                                            style="height:234px; width:234px;">
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <h5 class="card-title">{{ $servicio->representante }}</h5>
+                                        <p class="card-text text-white">Rubro: {{ $servicio->rubro }}</p>
+                                        <p class="card-text text-white">Servicio: {{ $servicio->servicios }}</p>
+                                        <p class="card-text text-white">Tipo de servicio:
+                                            {{ $servicio->tipoServicio }}
+                                        </p>
+                                        <p class="card-text text-white">Costo estimado:
+                                            ${{ $servicio->precio }}
+                                        </p>
+                                    </div>
+                                    </b>
+                                </a>
                             </div>
                         </div>
                     @endforeach
@@ -84,11 +81,7 @@
                     </div>
                 @endif
             </div>
-
-
-
         </div>
-
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -98,26 +91,24 @@
             buscarServicios();
         });
 
-        // Función para realizar la búsqueda y mostrar los resultados
-        // Función para realizar la búsqueda y mostrar los resultados
         function buscarServicios() {
             var rubrosSeleccionados = $('input[name="rubro[]"]:checked').map(function() {
                 return $(this).val();
             }).get();
 
             // Ocultar todos los elementos de la cuadrícula
-            $('.resultados').parent().hide();
+            $('.servicio-card').show();
 
             // Mostrar los elementos que coinciden con los rubros seleccionados
-            $('.resultados').each(function() {
-                var rubro = $(this).parent().attr('data-rubro');
-                if (rubrosSeleccionados.length === 0 || rubrosSeleccionados.includes(rubro)) {
-                    $(this).parent().show();
-                }
-            });
+            if (rubrosSeleccionados.length > 0) {
+                $('.servicio-card').hide();
+                rubrosSeleccionados.forEach(function(rubro) {
+                    $('.' + rubro).show();
+                });
+            }
 
             // Mostrar mensaje cuando no hay resultados
-            if ($('.resultados:visible').length === 0) {
+            if ($('.servicio-card:visible').length === 0) {
                 if ($('.no-results-message').length === 0) {
                     $('.container.d-flex.flex-row.flex-wrap').append(
                         '<p class="no-results-message text-white">No se encontraron resultados</p>');
@@ -147,7 +138,4 @@
             }
         };
     </script>
-    
-
-
 </x-app-layout>
