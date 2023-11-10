@@ -8,7 +8,7 @@
     <div class="row">
 
         <div class="col col-md-2 col-sm-12">
-            <div class="card text-white"
+            <div class="card text-white text-center"
                 style="background: rgb(18,121,193); background: linear-gradient(0deg, rgba(0,0,255,1)0%, rgb(18,121,193,1) 100%);">
                 <div class="card-body">
                     <h6 class="card-title">Rubros de talleres</h6>
@@ -53,9 +53,9 @@
                     @foreach ($serviciosMecanicos as $index => $servicio)
                         <div class="col-md-3 mb-3 servicio-card {{ $servicio->rubro }}">
                             <div class="card"
-                                style="background:transparent; border: solid blue; height:450px; width:245px;">
+                                style="background:transparent; border: solid blue; min-height:450px;" >
                                 <a href="{{ route('servicios-mecanicos.show', $servicio->id) }}">
-                                    <div class="text-center">
+                                    <div class="text-center mt-1">
                                         <img src="{{ $servicio->logo }}" class="img-thumbnail" alt="IMG_SERVICIO"
                                             style="height:234px; width:234px;">
                                     </div>
