@@ -1,179 +1,130 @@
 <x-app-layout>
 
+    <style scoped>
+        .circle {
+            width: 150px;
+            /* Ajusta el tamaño según tus necesidades */
+            height: 150px;
+            /* Ajusta el tamaño según tus necesidades */
+            overflow: hidden;
+            border-radius: 50%;
+        }
+
+        .circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ajusta la propiedad object-fit según tus necesidades (cover, contain, etc.) */
+        }
+    </style>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Perfil de Mecánico') }}
+            {{ __('Creacion de Perfil Mecánico') }}
         </h2>
     </x-slot>
-    <br>
-    <br>
-    <div class="container mt-5">
-        <form action="{{ route('perfil.store') }}" method="POST" enctype="multipart/form-data" class="my-custom-form">
-            @csrf
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col col-md-6">
+                <form action="{{ route('perfil.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    <div class="card my-3">
+                        <div class="text-start mx-3">
+                            <a href="{{ route('welcome') }}" class="btn btn-dark my-3">Regresar</a>
+                        </div>
 
 
-            <style>
-                * {
-                    box-sizing: border-box;
-                }
-
-                form {
-                    width: 500px;
-                    padding: 26px;
-                    border-radius: 10px;
-                    margin: auto;
-                    background-color: #ccc;
-                }
-
-                form label {
-
-                    font-weight: bold;
-                    display: inline-block;
-                }
-
-                form input[type="text"],
-                form input[type="email"] {
-                    width: 400px;
-                    padding: 3px 10px;
-                    border: 1px solid #f6f6f6;
-                    border-radius: 3px;
-                    background-color: #f6f6f6;
-                    margin: 8px 0;
-                    display: inline-block;
-                }
-
-                form input[type="submit"] {
-                    width: 100%;
-                    padding: 8px 16px;
-                    margin-top: 32px;
-                    border: 1px solid #000;
-                    border-radius: 5px;
-                    display: block;
-                    color: #fff;
-                    background-color: #000;
-                }
-
-                form input[type="submit"]:hover {
-                    cursor: pointer;
-                }
-
-                textarea {
-                    width: 100%;
-                    height: 100px;
-                    border: 1px solid #f6f6f6;
-                    border-radius: 3px;
-                    background-color: #f6f6f6;
-                    margin: 8px 0;
-                    /*resize: vertical | horizontal | none | both*/
-                    resize: none;
-                    display: block;
-                }
-
-                .centered {
-                    text-align: center;
-                    /* Centra el contenido horizontalmente */
-                    margin: 0 auto;
-                    /* Centra el contenido horizontalmente en el centro de la página */
-                    display: block;
-                    /* Para que el margen automático funcione correctamente */
-                }
-
-                .custom-upload {
-                    text-align: center;
-                }
-
-                .circle {
-                    width: 100px;
-                    height: 100px;
-                    border-radius: 50%;
-                    background-color: #e0e0e0;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                }
-
-                .circle img {
-                    max-width: 80px;
-                    max-height: 80px;
-                }
-
-                input[type="file"] {
-                    display: none;
-                }
-
-                .back-button {
-                    margin: 8px 0;
-                    width: 100px;
-                    /* Ajusta el ancho según tus preferencias */
-                    padding: 8px 16px;
-                    border: 1px solid #000;
-                    border-radius: 5px;
-                    color: #000;
-                    background-color: #fff;
-                    text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                }
-
-                /* Estilos para el contenedor del logo y el botón de regresar */
-                .logo-and-button-container {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                }
-            </style>
-
-            </head>
-
-            @if (session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
-
-            <form action="#" target="" method="get" name="formDatosPersonales">
-                <a href="{{ route('welcome') }}" class="back-button">Regresar</a>
-
-                <div class="centered logo-container">
-                    <div class="custom-upload">
-                        <label for="logo">
-                            <div class="circle">
-                                <img src="ruta_de_la_imagen.jpg" alt="Imagen del logo" />
+                        <div class="text-center mt-2">
+                            <div class="custom-upload">
+                                <label for="logo">
+                                    <div class="circle" style="border: 2px solid black">
+                                        <img src="ruta_de_la_imagen.jpg" alt="Imagen del logo" />
+                                    </div>
+                                </label>
+                                <input type="file" name="logo" id="logo" style="display: none;"
+                                    accept="image/*" />
                             </div>
-                        </label>
-                        <input type="file" name="logo" id="logo" style="display: none;" />
+                            <x-input-error :messages="$errors->get('logo')" class="alert alert-danger" role="alert" />
+                        </div>
+
+                        <br>
+                        <div class="card-body">
+                            <div class="form-floating my-3">
+                                <input type="text" class="form-control" id="ntaller" name="ntaller"
+                                    placeholder="Nombre del taller" aria-label="ntaller" value="{{ old('ntaller') }}">
+                                <label for="ntaller">Nombre de taller</label>
+                                <x-input-error :messages="$errors->get('ntaller')" class="alert alert-danger" role="alert" />
+                            </div>
+                            <div class="form-floating my-3">
+                                <input type="text" class="form-control" id="representante" name="representante"
+                                    placeholder="Nombre del propietario" aria-label="representante"
+                                    value="{{ old('representante') }}">
+                                <label for="representante">Nombre del propietario</label>
+                                <x-input-error :messages="$errors->get('representante')" class="alert alert-danger" role="alert" />
+                                <button type="button" id="setOwnerName" class="btn btn-dark mt-2">
+                                    Establecer nombre de la cuenta
+                                </button>
+                            </div>
+
+                            <div class="form-floating my-3">
+                                <input type="text" class="form-control" id="numerocontacto" name="numerocontacto"
+                                    placeholder="Numero" aria-label="numerocontacto"
+                                    value="{{ old('numerocontacto') }}">
+                                <label for="numerocontacto">Numero</label>
+                                <x-input-error :messages="$errors->get('numerocontacto')" class="alert alert-danger" role="alert" />
+                            </div>
+
+                            <div class="form-floating my-3">
+                                <input type="text" class="form-control" id="direccion" name="direccion"
+                                    placeholder="Direccion" aria-label="direccion" value="{{ old('direccion') }}">
+                                <label for="direccion">Direccion</label>
+                                <x-input-error :messages="$errors->get('direccion')" class="alert alert-danger" role="alert" />
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn btn-dark" type="submit">
+                                    Crear Perfil
+                                </button>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                <br>
-                <br>
-                <br>
-                <label for="ntaller">Nombre de taller</label>
-                <input type="text" name="ntaller" id="ntaller" placeholder="Nombre de taller">
-                <br>
-                <label for="servicios">Nombre de propietario</label>
-                <input type="text" name="servicios" id="servicios" placeholder="Servicios"
-                    value="{{ auth()->user()->name }}" />
-                <br>
-                <label for="numerocontacto">Número</label>
-                <input type="text" name="numerocontacto" id="numerocontacto" placeholder="Número de contacto">
-                <br>
-                <div class="social-icons">
-                    <a href="enlace_de_facebook" target="_blank">
-                        <img src="icono_facebook.png" alt="Facebook" width="32" height="32">
-                    </a>
-                    <a href="enlace_de_instagram" target="_blank">
-                        <img src="icono_instagram.png" alt="Instagram" width="32" height="32">
-                    </a>
-                </div>
+    <script>
+        function previewImage(input) {
+            var preview = document.querySelector('.circle img');
+            var file = input.files[0];
+            var reader = new FileReader();
 
-                <label for="direccion">Dirección</label>
-                <input type="text" name="direccion" id="direccion" placeholder="Dirección">
-                <br>
+            reader.onloadend = function() {
+                preview.src = reader.result;
+            }
 
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src =
+                    "ruta_de_la_imagen.jpg"; // Ruta de la imagen predeterminada si no se selecciona ninguna imagen
+            }
+        }
 
-                <input type="submit" name="enviar" value="GUARDAR DATOS" />
-            </form>
+        document.getElementById('logo').addEventListener('change', function() {
+            previewImage(this);
+        });
+
+        document.getElementById('setOwnerName').addEventListener('click', function() {
+            document.getElementById('representante').value = "{{ auth()->user()->name }}";
+        });
+    </script>
 </x-app-layout>

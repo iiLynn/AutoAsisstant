@@ -119,8 +119,6 @@ public function buscar(Request $request)
         return view('serviciosMecanicos.otraVista', compact('publicaciones'));
     }
     
-    // En caso de que la ruta no coincida con ninguna de las vistas esperadas
-    // podrías lanzar una excepción o manejarlo de acuerdo a tus necesidades.
 }
 
     public function otraVista(Request $request)

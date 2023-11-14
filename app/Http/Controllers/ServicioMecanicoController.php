@@ -32,8 +32,8 @@ class ServicioMecanicoController extends Controller
                 return view('serviciosMecanicos.requisitos', compact('serviciosMecanicos'));
             } elseif ($rolesUsuario->contains('conductor') || $rolesUsuario->contains('futuro_conductor')) {
                 $serviciosMecanicos = ServicioMecanico::all();
-
-                return view('serviciosMecanicos.servicioM', compact('serviciosMecanicos'));
+                $perfiles = perfil::all();
+                return view('serviciosMecanicos.servicioM', compact('serviciosMecanicos', 'perfiles'));
             } else {
                 return view('error');
             }
@@ -114,7 +114,7 @@ class ServicioMecanicoController extends Controller
 
             $logo = $request->file('logo');
             $logo_path = null;
-            
+
 
             if ($logo) {
                 $logo_path = 'imagenes/serviciosMecanicos/logo/' . time() . '.' . $logo->getClientOriginalExtension();
@@ -358,5 +358,34 @@ class ServicioMecanicoController extends Controller
 
         return view('serviciosMecanicos.ServiciosSitio', compact('serviciosMecanicos'));
 
+    }
+
+    public function buscarPerfil(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'q' => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $perfiles = perfil::when($request->q, function ($query, $q) {
+            return $query->where('ntaller', 'LIKE', '%' . $q . '%');
+            //->orWhere('representante', 'LIKE', '%' . $q . '%');
+        })->get();
+
+        // Obtener el nombre de la ruta actual
+        $currentRoute = Route::currentRouteName();
+        //dd("Current Route: " . $currentRoute);
+
+        $serviciosMecanicos = ServicioMecanico::all();
+
+        // Determinar qué vista está siendo accedida y retornar en consecuencia
+        if ($currentRoute === 'servicios-mecanicos.buscarPerfil') {
+            return view('serviciosMecanicos.servicioM', compact('perfiles','serviciosMecanicos'));
+        } elseif ($currentRoute === 'publicaciones.busscar') {
+            return view('serviciosMecanicos.servicioM', compact('perfiles'));
+        }
     }
 }

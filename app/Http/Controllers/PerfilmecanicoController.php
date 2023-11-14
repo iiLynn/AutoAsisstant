@@ -39,6 +39,7 @@ class PerfilmecanicoController extends Controller
                 'numerocontacto' => 'nullable',
                 'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'ntaller' => 'nullable',
+                'representante' => 'required',
                 'direccion' => 'nullable',
 
             ]);
@@ -58,6 +59,7 @@ class PerfilmecanicoController extends Controller
             $perfil = new perfil();
             $perfil->numerocontacto = $request->input('numerocontacto');
             $perfil->ntaller = $request->input('ntaller');
+            $perfil->representante = $request->input('representante');
             $perfil->direccion = $request->input('direccion');
             $perfil->logo = $logo_path;
             $perfil->id_user = $userid;

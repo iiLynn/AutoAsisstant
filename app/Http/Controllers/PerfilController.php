@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\perfil;
+
 class PerfilController extends Controller
 {
     public function create()
@@ -16,29 +17,32 @@ class PerfilController extends Controller
 
     public function validarperfil()
     {
-  // Obtiene el usuario autenticado
-  $userid=Auth::id();
-  $perfil=perfil::where('id_user',$userid)->first();
+        // Obtiene el usuario autenticado
+        $userid = Auth::id();
+        $perfil = perfil::where('id_user', $userid)->first();
 
-  if($perfil){
-    return redirect()->route('servicios-mecanicos.create');
-  }else{
-    return redirect()->route('perfil.index')->with('error', 'Actualmente no tiene un perfil creado, Crealo pendjo ');
-  }
+        if ($perfil) {
+            return redirect()->route('servicios-mecanicos.create');
+        } else {
+            return redirect()->route('perfil.index')->with('error', 'Actualmente no tiene un perfil creado, Crealo pendjo ');
+        }
 
     }
     public function store(Request $request)
     {
-        try{
-            $userid=Auth::id();
+        try {
+            $userid = Auth::id();
 
             // Valida los datos
             $validator = Validator::make($request->all(), [
-                'numerocontacto' => 'nullable',
-                'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'ntaller' => 'nullable',
-                'direccion' => 'nullable',
+                'numerocontacto' => 'required',
+                'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'ntaller' => 'required',
+                'representante' => 'required',
+                'direccion' => 'required',
 
+            ], [
+                'required' => 'El campo :attribute es obligatorio.',
             ]);
 
             if ($validator->fails()) {
@@ -54,11 +58,12 @@ class PerfilController extends Controller
 
 
             $perfil = new perfil();
-            $perfil->numerocontacto= $request->input('numerocontacto');
+            $perfil->numerocontacto = $request->input('numerocontacto');
             $perfil->ntaller = $request->input('ntaller');
+            $perfil->representante = $request->input('representante');
             $perfil->direccion = $request->input('direccion');
-            $perfil->logo= $logo_path;
-            $perfil->id_user=$userid;
+            $perfil->logo = $logo_path;
+            $perfil->id_user = $userid;
 
             $perfil->save();
 
@@ -66,7 +71,7 @@ class PerfilController extends Controller
         } catch (QueryException $e) {
             Session::flash('error', 'Se produjo un error en el servidor. Por favor, inténtalo de nuevo más tarde.');
             return redirect()->back();
-    }
+        }
     }
     public function showProfile()
     {

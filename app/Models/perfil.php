@@ -14,6 +14,7 @@ class Perfil extends Model
 
         'logo',
         'direccion',
+        'representante',
         'fechainicio',
         'fechafin',
         'servicios',

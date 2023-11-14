@@ -190,6 +190,7 @@ Route::get('/servicios-mecanicos/{id}', [ServicioMecanicoController::class, 'sho
 Route::get('/servicios-mecanicos/{servicio}/edit', [ServicioMecanicoController::class, 'edit'])->name('servicios-mecanicos.edit');
 Route::delete('/servicios-mecanicos/{servicio}', [ServicioMecanicoController::class, 'destroy'])->name('servicios-mecanicos.destroy');
 Route::put('/servicios-mecanicos/{id}', [ServicioMecanicoController::class, 'update'])->name('servicios-mecanicos.update');
+Route::get('/servicio-mecanicos/buscarPerfil', [ServicioMecanicoController::class, 'buscarPerfil'])->name('servicios-mecanicos.buscarPerfil');
 
 //rutas prueba
 Route::get('/inser/index', [ServicioMecanico1Controller::class, 'create'])->name('inser.index');
