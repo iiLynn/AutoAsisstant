@@ -254,7 +254,7 @@ Route::get('/perfil/index', [PerfilController::class, 'index'])->name('perfil.in
 Route::get('/perfil/validacion', [PerfilController::class, 'validarperfil'])->name('perfil.validarperfil');
 Route::post('/perfil/store', [PerfilController::class, 'store'])->name('perfil.store');
 Route::get('/perfil/show', [PerfilController::class, 'showProfile'])->name('perfil.showOrEdit');
-Route::put('/perfil/{id}', [PerfilController::class, 'updatePerfil'])->name('perfil.edit');
+Route::put('/perfil/{id}', [PerfilController::class, 'updatePerfil'])->name('perfil.update');
 
 
 //rutas vista de perfil mecanico

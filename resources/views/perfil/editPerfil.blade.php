@@ -26,8 +26,9 @@
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col col-md-6">
-                <form action="{{ route('perfil.edit', $perfil->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('perfil.update', $perfil->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('put')
 
                     @if (session('error'))
                         <div class="alert alert-danger">
@@ -35,11 +36,16 @@
                         </div>
                     @endif
 
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     <div class="card my-3">
                         <div class="text-start mx-3">
                             <a href="{{ route('welcome') }}" class="btn btn-dark my-3">Regresar</a>
                         </div>
-
 
                         <div class="text-center mt-2">
                             <div class="custom-upload">
@@ -49,7 +55,7 @@
                                     </div>
                                 </label>
                                 <input type="file" name="logo" id="logo" style="display: none;"
-                                    accept="image/*" class="form-control" readonly />
+                                    value="{{ asset($perfil->logo) }}" accept="image/*" class="form-control" readonly />
                             </div>
                             <x-input-error :messages="$errors->get('logo')" class="alert alert-danger" role="alert" />
                         </div>
@@ -69,7 +75,8 @@
                                     value="{{ $perfil->representante }}" readonly>
                                 <label for="representante">Nombre del propietario</label>
                                 <x-input-error :messages="$errors->get('representante')" class="alert alert-danger" role="alert" />
-                                <button type="button" id="setOwnerName" class="btn btn-dark mt-2">
+                                <button type="button" id="setOwnerName" class="btn btn-dark mt-2"
+                                    style="display: none">
                                     Establecer nombre de la cuenta
                                 </button>
                             </div>
@@ -155,9 +162,11 @@
             document.getElementById('editarPerfil').style.display =
                 document.getElementById('editarPerfil').style.display === 'none' ? 'inline-block' : 'none';
 
-            // Agregamos la lógica para el botón 'GuardarCambios'
             document.getElementById('GuardarCambios').style.display =
                 document.getElementById('GuardarCambios').style.display === 'none' ? 'inline-block' : 'none';
+
+            document.getElementById('setOwnerName').style.display =
+                document.getElementById('setOwnerName').style.display === 'none' ? 'inline-block' : 'none';
         }
 
         document.getElementById('editarPerfil').addEventListener('click', toggleEdicion);
@@ -165,6 +174,11 @@
         document.getElementById('cancelarEdicion').addEventListener('click', function() {
             // Llama a la misma función para revertir los cambios al presionar "Cancelar"
             toggleEdicion();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var logoInput = document.getElementById('logo');
+            logoInput.value = "{{ $perfil->logo }}";
         });
     </script>
 </x-app-layout>

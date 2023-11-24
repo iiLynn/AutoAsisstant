@@ -89,9 +89,44 @@ class PerfilController extends Controller
 
     }
 
-    public function updatePerfil($id)
+    public function updatePerfil(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'numerocontacto' => 'required',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'ntaller' => 'required',
+            'representante' => 'required',
+            'direccion' => 'required',
+        ], [
+            'required' => 'El campo :attribute es obligatorio.',
+            'image' => 'El archivo seleccionado no es una imagen válida.',
+            'max' => 'El tamaño de la imagen no puede ser mayor a :max kilobytes.',
+        ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $perfil = perfil::find($id);
+        $perfil->numerocontacto = $request->input('numerocontacto');
+        $perfil->ntaller = $request->input('ntaller');
+        $perfil->representante = $request->input('representante');
+        $perfil->direccion = $request->input('direccion');
+
+        // Verificar si se ha cargado un nuevo archivo
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo');
+            $logo_path = 'imagenes/' . time() . '.' . $logo->getClientOriginalExtension();
+            $logo->move(public_path('imagenes/'), $logo_path);
+            $perfil->logo = $logo_path;
+        }
+
+        //dd($perfil);
+
+        $perfil->save();
+
+        return redirect()->route('perfil.showOrEdit')->with('success', 'Los datos se han actualizado.');
     }
+
 
 }
