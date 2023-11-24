@@ -250,9 +250,13 @@ Route::post('/thesis/update', [ThesisController::class, 'update'])->name('thesis
 Route::get('/thesis/delete/{id}', [ThesisController::class, 'destroy'])->name('thesis_delete');
 
 //rutas perfil
-Route::get('/perfil/index', [PerfilController::class, 'create'])->name('perfil.index');
+Route::get('/perfil/index', [PerfilController::class, 'index'])->name('perfil.index');
 Route::get('/perfil/validacion', [PerfilController::class, 'validarperfil'])->name('perfil.validarperfil');
 Route::post('/perfil/store', [PerfilController::class, 'store'])->name('perfil.store');
+Route::get('/perfil/show', [PerfilController::class, 'showProfile'])->name('perfil.showOrEdit');
+Route::put('/perfil/{id}', [PerfilController::class, 'updatePerfil'])->name('perfil.edit');
+
+
 //rutas vista de perfil mecanico
 
 Route::get('/perfilmecanico/index', [PerfilmecanicoController::class, 'create'])->name('perfilmecanico.index');

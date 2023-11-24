@@ -9,11 +9,13 @@ use App\Models\perfil;
 
 class PerfilController extends Controller
 {
-    public function create()
+    public function index()
     {
 
         return view('perfil.index');
     }
+
+
 
     public function validarperfil()
     {
@@ -75,12 +77,21 @@ class PerfilController extends Controller
     }
     public function showProfile()
     {
-        if (Auth::check()) {
-            $user = Auth::user();
-            return view('perfil.index', compact('user'));
+
+        $userid = Auth::id();
+        $perfil = perfil::where('id_user', $userid)->first();
+
+        if ($perfil) {
+            return view('perfil.editPerfil', compact('perfil'));
         } else {
-            // Redirige al inicio de sesión o muestra un mensaje de error.
+            return redirect()->route('perfil.index')->with('error', 'Actualmente no tiene un perfil creado, Crealo pendjo ');
         }
+
+    }
+
+    public function updatePerfil($id)
+    {
+
     }
 
 }
