@@ -168,7 +168,7 @@
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
                     <h4>ERES UN TALLER MECANICO &#128526;<span class="badge bg-primary">{{ Auth::user()->name }}</span></h4>
-                    <a href="{{ route('perfil.index') }}" class="btn btn-primary">PERFIL DE MECANICO</a>
+                    <a href="{{ route('perfil.validarperfil2') }}" class="btn btn-primary">PERFIL DE MECANICO</a>
                     <!--<footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>-->
                 </blockquote>
             </div>

@@ -89,10 +89,6 @@
                                     <i class='bx bx-shield-plus nav_icon'></i>
                                     <span class="nav_name">{{ __('Servicios Activos') }}</span>
                                 </a>
-                                <a href="{{ route('perfilmecanico.index') }}" class="nav_link">
-                                    <i class='bx bx-shield-plus nav_icon'></i>
-                                    <span class="nav_name">{{ __('perfil') }}</span>
-                                </a>
                             @endif
 
 

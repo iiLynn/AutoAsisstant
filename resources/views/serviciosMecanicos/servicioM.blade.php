@@ -14,10 +14,12 @@
         }
 
         .custom-card {
-            border: 5px solid #395d68;
+            border: 2px solid blue;
+            /* Borde azul */
             min-height: 320px;
             position: relative;
-            background: linear-gradient(to bottom right, #32525C, #0f69a8);
+            background: none;
+            /* Sin fondo de gradiente */
             overflow: hidden;
         }
 
@@ -39,7 +41,8 @@
                 data-bs-target="#nav-servicios" type="button" role="tab" aria-controls="nav-servicios"
                 aria-selected="true">Servicios</button>
             <button class="nav-link bg-primary" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
-                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Perfiles</button>
+                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Perfiles de
+                Mecánico</button>
         </div>
     </nav>
 
@@ -134,8 +137,8 @@
             <div class="container my-2">
                 <div class="row">
                     <div class="col col-md-12">
-                        <div class="card" style="background-color: #32525C; color:#0f69a8;">
-                            <div class="card-header text-center" style="background-color: #395f6b;">
+                        <div class="card" style="background:transparent; border: solid blue;">
+                            <div class="card-header text-center" style="background-color: #111212;">
                                 <h5 class="text-white">Busqueda</h5>
                             </div>
                             <div class="card-body">

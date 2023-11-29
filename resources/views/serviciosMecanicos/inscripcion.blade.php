@@ -61,7 +61,7 @@
             <div class="d-flex justify-content-center nav-tabs text-primary" id="nav-tab" role="tablist">
                 <button class="nav-link active col-md-5" id="nav-home-tab" data-bs-toggle="tab"
                     data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
-                    aria-selected="true">Descripcion</button>
+                    aria-selected="true">Inscripción</button>
                 <button class="nav-link col-md-5" id="nav-profile-tab" data-bs-toggle="tab"
                     data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
                     aria-selected="false">Montos</button>
@@ -70,8 +70,8 @@
         </nav>
         <br>
         <div class="tab-content bg-white" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
-                tabindex="0">
+            <div style="background-color: #000; border: 2px solid white;"class="tab-pane fade show active"
+                id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                 <div class="container">
                     <div class="row center-content">
                         <br>
@@ -135,8 +135,8 @@
 
 
             </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
-                tabindex="0">
+            <div style="background-color: #000; border: 2px solid white;" class="tab-pane fade" id="nav-profile"
+                role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                 <div class="container py-3">
                     <div class="row  center-content">
                         <br>

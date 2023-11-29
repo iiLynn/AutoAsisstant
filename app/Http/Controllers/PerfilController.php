@@ -26,7 +26,20 @@ class PerfilController extends Controller
         if ($perfil) {
             return redirect()->route('servicios-mecanicos.create');
         } else {
-            return redirect()->route('perfil.index')->with('error', 'Actualmente no tiene un perfil creado, Crealo pendjo ');
+            return redirect()->route('perfil.index')->with('error', 'Actualmente no tiene un perfil creado.');
+        }
+
+    }
+    public function validarperfil2()
+    {
+        // Obtiene el usuario autenticado
+        $userid = Auth::id();
+        $perfil = perfil::where('id_user', $userid)->first();
+
+        if ($perfil) {
+            return redirect()->route('perfil.showOrEdit');
+        } else {
+            return redirect()->route('perfil.index')->with('error', 'Actualmente no tiene un perfil creado.');
         }
 
     }

@@ -255,7 +255,7 @@ Route::get('/perfil/validacion', [PerfilController::class, 'validarperfil'])->na
 Route::post('/perfil/store', [PerfilController::class, 'store'])->name('perfil.store');
 Route::get('/perfil/show', [PerfilController::class, 'showProfile'])->name('perfil.showOrEdit');
 Route::put('/perfil/{id}', [PerfilController::class, 'updatePerfil'])->name('perfil.update');
-
+Route::get('/perfil/validacion2', [PerfilController::class, 'validarperfil2'])->name('perfil.validarperfil2');
 
 //rutas vista de perfil mecanico
 
@@ -263,6 +263,7 @@ Route::get('/perfilmecanico/index', [PerfilmecanicoController::class, 'create'])
 Route::get('/perfilmecanico/validacion', [PerfilmecanicoController::class, 'validarperfil'])->name('perfilmecanico.validarperfil');
 Route::post('/perfilmecanico/store', [PerfilmecanicoController::class, 'store'])->name('perfilmecanico.store');
 Route::get('/perfilmecanico/{id}', [PerfilmecanicoController::class, 'showProfile'])->name('perfilmecanico.show');
+Route::get('/perfilmecanico/validacion2', [PerfilmecanicoController::class, 'validarperfil2'])->name('perfilmecanico.validarperfil2');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');

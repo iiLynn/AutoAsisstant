@@ -7,6 +7,7 @@
             height: 150px;
             /* Ajusta el tamaño según tus necesidades */
             overflow: hidden;
+            background-color: #fff;
             border-radius: 50%;
         }
 
@@ -16,10 +17,20 @@
             object-fit: cover;
             /* Ajusta la propiedad object-fit según tus necesidades (cover, contain, etc.) */
         }
+
+        .card {
+            background-color: #000;
+            /* Reemplaza "#your_color" con el color deseado */
+            color: white;
+            /* Cambia el color del texto si es necesario */
+            border: 2px solid white;
+            /* Agrega un borde blanco */
+            border-radius: 10px;
+        }
     </style>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Creacion de Perfil Mecánico') }}
+            {{ __('Creación de Perfil Mecánico') }}
         </h2>
     </x-slot>
 
@@ -35,7 +46,7 @@
                         </div>
                     @endif
 
-                    <div class="card my-3">
+                    <div class="card my-3" style="color:#000;">
                         <div class="text-start mx-3">
                             <a href="{{ route('welcome') }}" class="btn btn-dark my-3">Regresar</a>
                         </div>
@@ -58,7 +69,8 @@
                         <div class="card-body">
                             <div class="form-floating my-3">
                                 <input type="text" class="form-control" id="ntaller" name="ntaller"
-                                    placeholder="Nombre del taller" aria-label="ntaller" value="{{ old('ntaller') }}">
+                                    placeholder="Nombre del taller" aria-label="ntaller"
+                                    value="{{ $perfil->ntaller ?? old('ntaller') }}">
                                 <label for="ntaller">Nombre de taller</label>
                                 <x-input-error :messages="$errors->get('ntaller')" class="alert alert-danger" role="alert" />
                             </div>

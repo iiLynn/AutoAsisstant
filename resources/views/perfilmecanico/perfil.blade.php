@@ -10,7 +10,7 @@
 
         <div class="row">
             <div class="col col-md-12 my-3">
-                <a class="btn btn-secondary" href="{{ route('welcome') }}">Regresar</a>
+                <a class="btn btn-secondary" href="{{ route('servicios-mecanicos.index') }}">Regresar</a>
             </div>
             <div class="col col-md-4 mt-2">
                 <div class="card" style="background-color: #242424; color:#D9D9D9;">
@@ -19,7 +19,8 @@
                     </div>
                     <div class="card-body" style="">
                         <div class="text-center">
-                            <img style="width: 250px" src="{{ asset($perfil->logo) }}" class="img-fluid rounded" alt="IMGPerfil">
+                            <img style="width: 250px" src="{{ asset($perfil->logo) }}" class="img-fluid rounded"
+                                alt="IMGPerfil">
                         </div>
                         <div class="mx-5 mt-5">
                             <div class="row">
