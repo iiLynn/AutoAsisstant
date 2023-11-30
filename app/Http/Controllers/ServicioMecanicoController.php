@@ -353,10 +353,10 @@ class ServicioMecanicoController extends Controller
     }
     public function indexInterno()
     {
-        // Lógica interna
+        $perfiles = perfil::all();
         $serviciosMecanicos = ServicioMecanico::all();
 
-        return view('serviciosMecanicos.ServiciosSitio', compact('serviciosMecanicos'));
+        return view('serviciosMecanicos.ServiciosSitio', compact('serviciosMecanicos', 'perfiles'));
 
     }
 
