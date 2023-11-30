@@ -25,7 +25,7 @@ class PerfilmecanicoController extends Controller
         if ($perfil) {
             return redirect()->route('servicios-mecanicos.create');
         } else {
-            return redirect()->route('perfil.index')->with('error', 'Actualmente no tiene un perfil creado, Crealo pendjo ');
+            return redirect()->route('perfil.index')->with('error', 'Actualmente no tiene un perfil creado.');
         }
 
     }
@@ -76,16 +76,31 @@ class PerfilmecanicoController extends Controller
     {
         try {
             $perfil = Perfil::findOrFail($id);
+
+            if (!$perfil) {
+                return view('perfilmecanico.perfil', compact('perfil', 'serviciosPerfil', 'id'));
+            }
+
             $idPerfil = $perfil->id;
 
             $serviciosPerfil = ServicioMecanico::where('id_perfil', $idPerfil)->get();
 
-            return view('perfilmecanico.perfil', compact('perfil', 'serviciosPerfil'));
+            // Obtener la ruta actual
+            $currentRoute = \Route::currentRouteName();
+
+            // Determinar qué vista está siendo accedida y retornar en consecuencia
+            if ($currentRoute === 'perfilmecanico.show2') {
+                return view('serviciosMecanicos.perfilsitio', compact('perfil', 'serviciosPerfil', 'id'));
+            } elseif ($currentRoute === 'perfilmecanico.show') {
+                return view('perfilmecanico.perfil', compact('perfil',  'serviciosPerfil',  'id'));
+            }
+
         } catch (\Exception $e) {
-            // Manejar el error, por ejemplo redirigir a una página de error o mostrar un mensaje amigable.
-            return redirect()->route('error')->with('error', 'Perfil no encontrado');
+            // Manejar el error, por ejemplo, redirigir a una página de error o mostrar un mensaje amigable.
+            return view('serviciosMecanicos.perfilsitio', compact('perfil', 'id'));
         }
     }
+
 
 
 }

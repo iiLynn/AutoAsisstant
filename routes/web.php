@@ -130,6 +130,9 @@ Route::get('/inicio', function () {
 Route::get('/ServiciosSitio', function () {
     return view('serviciosMecanicos.ServiciosSitio');
 });
+Route::get('/perfilsitio', function () {
+    return view('serviciosMecanicos.perfilsitio');
+});
 Route::get('/servicios', function () {
     return view('ServiciosSitio');
 })->name('servicios');
@@ -217,6 +220,11 @@ Route::get('/cultura.store', [CulturaController::class, ' store'])->name('cultur
 //rutas para ver mas
 Route::get('/info/{publicacion}', [PublicacionController::class, 'show'])->name('publicaciones.show1');
 
+//rutas perfil en sitioweb
+Route::get('/servicios-internos2', [ServicioMecanicoController::class, 'indexInterno2'])->name('servicios-mecanicos.indexinterno2');
+Route::get('/perfilmecanico2/{id}', [PerfilmecanicoController::class, 'showProfile'])->name('perfilmecanico.show2');
+
+
 //ruta para servicioWeb
 Route::get('/servicios-internos', [ServicioMecanicoController::class, 'indexInterno'])->name('servicios-mecanicos.indexinterno');
 Route::get('/servicios-externos', 'ServicioMecanicoController@indexExterno');
@@ -241,7 +249,6 @@ Route::get('/perfilusu', [TuController::class, 'show'])->name('perfilusu1');
 Route::post('/guardar-datos', 'TuControlador@guardarDatos')->name('guardarDatos');
 
 //rutas manueles
-
 
 Route::get('/manuales', [ThesisController::class, 'index'])->name('manuales.index');
 Route::post('/thesis/register', [ThesisController::class, 'store'])->name('thesis_register');

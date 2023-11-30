@@ -97,7 +97,7 @@ class PerfilController extends Controller
         if ($perfil) {
             return view('perfil.editPerfil', compact('perfil'));
         } else {
-            return redirect()->route('perfil.index')->with('error', 'Actualmente no tiene un perfil creado, Crealo pendjo ');
+            return redirect()->route('perfil.index')->with('error', 'Actualmente no tiene un perfil creado. ');
         }
 
     }

@@ -360,6 +360,15 @@ class ServicioMecanicoController extends Controller
 
     }
 
+    public function indexInterno2()
+    {
+        $perfiles = perfil::all();
+        $serviciosMecanicos = ServicioMecanico::all();
+
+        return view('serviciosMecanicos.perfilsitio', compact('serviciosMecanicos', 'perfiles'));
+
+    }
+
     public function buscarPerfil(Request $request)
     {
         $validator = Validator::make($request->all(), [

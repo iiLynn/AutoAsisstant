@@ -79,7 +79,7 @@
                                             <h5>$ {{ $servicioMecanico->precio }}</h5>
                                         </div>
                                         <div class="col-12 my-2 d-flex justify-content-end">
-                                            <a href="{{ route('perfilmecanico.show', $servicioMecanico->id_perfil) }}"
+                                            <a href="{{ route('perfilmecanico.show2', $servicioMecanico->id_perfil) }}"
                                                 class="btn btn-primary btn-block"><em class='bx bxs-user'></em> Perfil</a>
                                         </div>
                                         <div class="col-12 my-2">
