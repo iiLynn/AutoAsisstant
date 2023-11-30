@@ -143,22 +143,18 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col col-md-7">
+                                    <div class="col col-md-9">
                                         <div class="form-floating">
                                             <input type="text" class="form-control" id="q" name="q"
                                                 placeholder="Nombre del mecanico o taller mecanico" aria-label="q"
-                                                value="{{ old('q') }}">
+                                                value="{{ old('q') }}" oninput="realizarBusquedaEnTiempoReal()">
+
                                             <label for="q">Busqueda por Nombre</label>
                                             <x-input-error :messages="$errors->get('q')" class="alert alert-danger"
                                                 role="alert" />
                                         </div>
                                     </div>
-                                    <div class="col col-md-5 d-flex align-items-center">
-                                        <button type="button" class="btn btn-primary px-4"
-                                            onclick="filtrarResultados()">
-                                            <i class='bx bx-search-alt-2'></i>
-                                            Buscar
-                                        </button>
+                                    <div class="col col-md-3 d-flex align-items-center">
                                         <button type="button" class="btn btn-secondary mx-2 px-4"
                                             onclick="limpiarResultados()">
                                             <i class='bx bx-trash'></i>
@@ -267,54 +263,50 @@
         };
 
         /*SECCION DE BUSQUEDA DE PERFILES */
-        const perfiles = {!! json_encode($perfiles) !!}; // Obtén los perfiles desde el servidor
+        const perfiles = {!! json_encode($perfiles) !!};
 
-        function filtrarResultados() {
+        // Esta función se ejecutará cada vez que se escriba algo en el campo de búsqueda
+        function realizarBusquedaEnTiempoReal() {
             const searchTerm = document.getElementById('q').value.toLowerCase();
-
             const resultadosFiltrados = perfiles.filter(perfil =>
-                (perfil.representante && perfil.representante.toLowerCase().includes(searchTerm)) ||
-                (perfil.ntaller && perfil.ntaller.toLowerCase().includes(searchTerm))
+                perfil.representante.toLowerCase().includes(searchTerm) ||
+                perfil.ntaller.toLowerCase().includes(searchTerm)
             );
-
             mostrarResultados(resultadosFiltrados);
         }
 
-
         function limpiarResultados() {
-            document.getElementById('q').value = ''; // Limpiar el campo de búsqueda
-            mostrarResultados(perfiles); // Mostrar todos los resultados nuevamente
+            document.getElementById('q').value = '';
+            mostrarResultados(perfiles);
         }
 
         function mostrarResultados(resultados) {
             const resultadosContainer = document.getElementById('resultadosContainer');
-            resultadosContainer.innerHTML = ''; // Limpiar los resultados anteriores
+            resultadosContainer.innerHTML = '';
 
             if (resultados.length > 0) {
                 resultados.forEach(perfil => {
                     const card = document.createElement('div');
                     card.className = 'col-md-3 mb-3';
                     card.innerHTML = `
-                    <div class="card custom-card">
-                        <a href="{{ route('perfilmecanico.show', $perfil->id) }}">
-                            <div class="text-center mt-1 image-container">
-                                <img src="{{ $perfil->logo }}"
-                                    class="img-thumbnail rounded-circle" alt="IMG_SERVICIO"
-                                    style="height:204px; width:204px;">
-                            </div>
-                            <div class="card-body text-white text-center">
-                                <h6 class="card-text">
-                                    <i class='bx bxs-user'></i>
-                                    Representante: {{ $perfil->representante }}
-                                </h6>
-                                <h6 class="card-text">
-                                    <i class='bx bxs-car-mechanic'></i>
-                                    Taller mecanico: {{ $perfil->ntaller }}
-                                </h6>
-                            </div>
-                        </a>
-                    </div>
-                    `;
+                <div class="card custom-card">
+                    <a href="{{ route('perfilmecanico.show', $perfil->id) }}">
+                        <div class="text-center mt-1 image-container">
+                            <img src="${perfil.logo}" class="img-thumbnail rounded-circle" alt="IMG_SERVICIO" style="height:204px; width:204px;">
+                        </div>
+                        <div class="card-body text-white text-center">
+                            <h6 class="card-text">
+                                <i class='bx bxs-user'></i>
+                                Representante: ${perfil.representante}
+                            </h6>
+                            <h6 class="card-text">
+                                <i class='bx bxs-car-mechanic'></i>
+                                Taller mecanico: ${perfil.ntaller}
+                            </h6>
+                        </div>
+                    </a>
+                </div>
+            `;
                     resultadosContainer.appendChild(card);
                 });
             } else {
@@ -325,5 +317,5 @@
             }
         }
     </script>
-    <script></script>
+
 </x-app-layout>

@@ -9,10 +9,10 @@
     <div class="container mt-10 pt-5 pb-5">
 
         <div class="row">
-            <div class="col col-md-12 my-3">
+            <div class="col-12 col-md-12 my-3">
                 <a class="btn btn-secondary" href="{{ route('servicios-mecanicos.index') }}">Regresar</a>
             </div>
-            <div class="col col-md-4 mt-2">
+            <div class="col-12 col-md-4 mt-2">
                 <div class="card" style="background-color: #242424; color:#D9D9D9;">
                     <div class="card-header text-center" style="background-color: #3d3c3c;">
                         <h4>Información</h4>
@@ -79,6 +79,7 @@
                                                 <p class="card-text d-flex justify-content-end">
                                                     Precio: ${{ $servicio->precio }}
                                                 </p>
+                                                <a class="btn btn-secondary" href="{{ route('servicios-mecanicos.show', $servicio->id) }}">Ver servicio</a>
                                             </div>
                                         </div>
                                     </div>
