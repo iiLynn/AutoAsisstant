@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\perfil;
+use Illuminate\Validation\Rule;
+
 
 class PerfilController extends Controller
 {
@@ -52,12 +54,16 @@ class PerfilController extends Controller
             $validator = Validator::make($request->all(), [
                 'numerocontacto' => 'required',
                 'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'ntaller' => 'required',
+                'ntaller' => [
+                    'required',
+                    Rule::unique('perfil'),
+                ],
                 'representante' => 'required',
                 'direccion' => 'required',
 
             ], [
-                'required' => 'El campo :attribute es obligatorio.',
+                'required' => 'El campo es obligatorio.',
+                'ntaller.unique' => 'Ya existe un taller con el mismo nombre.',
             ]);
 
             if ($validator->fails()) {
@@ -107,13 +113,14 @@ class PerfilController extends Controller
         $validator = Validator::make($request->all(), [
             'numerocontacto' => 'required',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'ntaller' => 'required',
+            'ntaller' => 'required|unique:perfil,ntaller,' . $id, // Agregamos la regla unique
             'representante' => 'required',
             'direccion' => 'required',
         ], [
-            'required' => 'El campo :attribute es obligatorio.',
+            'required' => 'El campo es obligatorio.',
             'image' => 'El archivo seleccionado no es una imagen válida.',
             'max' => 'El tamaño de la imagen no puede ser mayor a :max kilobytes.',
+             'ntaller.unique' => 'El nombre del taller ya está en uso.',
         ]);
 
         if ($validator->fails()) {

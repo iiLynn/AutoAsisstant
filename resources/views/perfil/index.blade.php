@@ -139,4 +139,45 @@
             document.getElementById('representante').value = "{{ auth()->user()->name }}";
         });
     </script>
+    <script>
+        // Función para quitar los mensajes de error después de un cierto tiempo
+        function removeErrorMessages() {
+            var errorMessages = document.querySelectorAll('.alert.alert-danger');
+            errorMessages.forEach(function(message) {
+                setTimeout(function() {
+                    message.style.display = 'none';
+                }, 4000); // 4000 milisegundos (4 segundos)
+            });
+        }
+
+        function previewImage(input) {
+            var preview = document.querySelector('.circle img');
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src =
+                "ruta_de_la_imagen.jpg"; // Ruta de la imagen predeterminada si no se selecciona ninguna imagen
+            }
+        }
+
+        document.getElementById('logo').addEventListener('change', function() {
+            previewImage(this);
+        });
+
+        document.getElementById('setOwnerName').addEventListener('click', function() {
+            document.getElementById('representante').value = "{{ auth()->user()->name }}";
+        });
+
+        // Llamar a la función para quitar los mensajes de error al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            removeErrorMessages();
+        });
+    </script>
 </x-app-layout>

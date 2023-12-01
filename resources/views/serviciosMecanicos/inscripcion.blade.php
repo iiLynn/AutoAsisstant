@@ -223,8 +223,27 @@
 </x-app-layout>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr@latest/dist/flatpickr.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    $(document).ready(function() {
+        console.log("Removing messages...");
+
+        var successMessage = $('.alert.alert-success');
+        var errorMessage = $('.alert.alert-danger');
+
+        if (successMessage.length > 0) {
+            setTimeout(function() {
+                successMessage.hide();
+            }, 4000); // 4000 milisegundos (4 segundos)
+        }
+
+        if (errorMessage.length > 0) {
+            setTimeout(function() {
+                errorMessage.hide();
+            }, 4000); // 4000 milisegundos (4 segundos)
+        }
         flatpickr('.timepicker', {
             enableTime: true,
             noCalendar: true,
