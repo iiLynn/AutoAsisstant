@@ -34,7 +34,7 @@
                                     <h6><strong>Nombre del propietario:</strong></h6>
                                 </div>
                                 <div class="col col-md-6 mb-3">
-                                    Kerin xd
+                                    {{ $perfil->representante }}
                                 </div>
                                 <div class="col col-md-6 mb-3">
                                     <h6><strong>Numero:</strong></h6>
@@ -79,7 +79,9 @@
                                                 <p class="card-text d-flex justify-content-end">
                                                     Precio: ${{ $servicio->precio }}
                                                 </p>
-                                                <a class="btn btn-secondary" href="{{ route('servicios-mecanicos.show', $servicio->id) }}">Ver servicio</a>
+                                                <a class="btn btn-secondary"
+                                                    href="{{ route('servicios-mecanicos.show', $servicio->id) }}">Ver
+                                                    servicio</a>
                                             </div>
                                         </div>
                                     </div>

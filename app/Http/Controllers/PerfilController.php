@@ -64,6 +64,8 @@ class PerfilController extends Controller
             ], [
                 'required' => 'El campo es obligatorio.',
                 'ntaller.unique' => 'Ya existe un taller con el mismo nombre.',
+                'logo.image' => 'El archivo debe ser una imagen válida (jpeg, png, jpg, gif).',
+            'logo.max' => 'El tamaño de la imagen no debe ser mayor a 2048 kilobytes.',
             ]);
 
             if ($validator->fails()) {

@@ -266,6 +266,7 @@
                 "Cambio de motor",
                 "Cambio de bomba de frenos",
                 "Reapriete de suspension",
+                "Cambio de tijeras",
             ],
             "Lubricentro": [
                 "Cambio de aceite.",
@@ -337,6 +338,7 @@
                 "Cambio de motor": ["Adomicilio"],
                 "Cambio de bomba de frenos": [""],
                 "Reapriete de suspension": ["Adomicilio"],
+                "Cambio de tijeras": ["Adomicilio"],
             },
             "Lubricentro": {
                 "Cambio de filtro de aceite.": ["Adomicilio"],
