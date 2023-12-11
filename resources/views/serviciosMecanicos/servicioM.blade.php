@@ -288,9 +288,10 @@
                 resultados.forEach(perfil => {
                     const card = document.createElement('div');
                     card.className = 'col-md-3 mb-3';
+                    const perfilUrl = `/perfilmecanico/${perfil.id}`;
                     card.innerHTML = `
                 <div class="card custom-card">
-                    <a href="{{ route('perfilmecanico.show', $perfil->id) }}">
+                    <a href="${perfilUrl}">
                         <div class="text-center mt-1 image-container">
                             <img src="${perfil.logo}" class="img-thumbnail rounded-circle" alt="IMG_SERVICIO" style="height:204px; width:204px;">
                         </div>

@@ -305,27 +305,26 @@
                     resultados.forEach(perfil => {
                         const card = document.createElement('div');
                         card.className = 'col-md-3 mb-3';
+                        const perfilUrl = `/perfilmecanico/${perfil.id}`;
                         card.innerHTML = `
-                    <div class="card custom-card">
-                        <a href="{{ route('perfilmecanico.show', $perfil->id) }}">
-                            <div class="text-center mt-1 image-container">
-                                <img src="{{ $perfil->logo }}"
-                                    class="img-thumbnail rounded-circle" alt="IMG_SERVICIO"
-                                    style="height:204px; width:204px;">
-                            </div>
-                            <div class="card-body text-white text-center">
-                                <h6 class="card-text">
-                                    <i class='bx bxs-user'></i>
-                                    Representante: {{ $perfil->representante }}
-                                </h6>
-                                <h6 class="card-text">
-                                    <i class='bx bxs-car-mechanic'></i>
-                                    Taller mecanico: {{ $perfil->ntaller }}
-                                </h6>
-                            </div>
-                        </a>
-                    </div>
-                    `;
+                <div class="card custom-card">
+                    <a href="${perfilUrl}">
+                        <div class="text-center mt-1 image-container">
+                            <img src="${perfil.logo}" class="img-thumbnail rounded-circle" alt="IMG_SERVICIO" style="height:204px; width:204px;">
+                        </div>
+                        <div class="card-body text-white text-center">
+                            <h6 class="card-text">
+                                <i class='bx bxs-user'></i>
+                                Representante: ${perfil.representante}
+                            </h6>
+                            <h6 class="card-text">
+                                <i class='bx bxs-car-mechanic'></i>
+                                Taller mecanico: ${perfil.ntaller}
+                            </h6>
+                        </div>
+                    </a>
+                </div>
+            `;
                         resultadosContainer.appendChild(card);
                     });
                 } else {
