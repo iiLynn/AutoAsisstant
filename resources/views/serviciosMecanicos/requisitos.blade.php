@@ -146,7 +146,7 @@ img {
                 </div>
             </details>
             <div class="row">
-                <a href="{{ route('servicios-mecanicos.create') }}" class="btn btn-primary btn-lg"><em
+                <a href="{{ route('perfil.validarperfil') }}" class="btn btn-primary btn-lg"><em
                         class='bx bx-plus-circle'></em>Inscribir Servicio Mecánico</a>
             </div>
         </div>
@@ -227,7 +227,7 @@ img {
                 </div>
             </details>
             <div class="row">
-                <a href="{{ route('servicios-mecanicos.create') }}" class="btn btn-primary btn-lg"><em
+                <a href="{{ route('perfil.validarperfil') }}" class="btn btn-primary btn-lg"><em
                         class='bx bx-plus-circle'></em> Inscribir Servicio Mecánico</a>
             </div>
         </div>

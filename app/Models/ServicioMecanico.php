@@ -11,31 +11,36 @@ class ServicioMecanico extends Model
     protected $table = 'servicios_mecanicos';
 
     protected $fillable = [
-        'nombreTaller',
-        'representante',
+
         'fechaInicio',
         'fechaFin',
-        'numeroContacto',
+        'precioes',
         'precio',
         'hora1',
         'hora2',
-        'logo',
         'rubro',
+        'logo',
         'servicios',
         'descripcion',
-        'direccion',
         'tipoServicio',
         'acreditacion_1',
         'acreditacion_2',
         'acreditacion_3',
         'acreditacion_4',
-        'id_user',
+        'id_perfil',
+        'id_user'
 
     ];
 
     public function contrataciones()
     {
         return $this->hasMany(Contratacion::class);
+    }
+
+    // En el modelo ServicioMecanico
+    public function perfil()
+    {
+        return $this->belongsTo(perfil::class, 'id_perfil');
     }
 
 }

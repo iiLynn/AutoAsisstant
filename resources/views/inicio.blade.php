@@ -38,7 +38,7 @@ body {
 .box-container2 {
     display: flex;
     flex-wrap: wrap;
-    
+
 }
 
 .box2,
@@ -75,8 +75,8 @@ body {
     color: #fff;
     position: static;
     padding: 5px;
-   
-    
+
+
 }
 
 .carousel-caption h3 {
@@ -96,7 +96,7 @@ body {
     max-height: 5cm;
     width: 10;
     height: 6;
-}      
+}
 .carouselConsejos {
     height: 300px; /* Cambia la altura según tus necesidades */
 }
@@ -120,14 +120,14 @@ body {
         font-size: 16px;
         margin-bottom: 5px;
         color: white;
-        
+
     }
     </style>
 </head>
 
 
 </a>
-<div id="carouselConsejos" class="carousel slide" data-ride="carousel" data-interval="200000" data-wrap="true">
+<div id="carouselConsejos" class="carousel slide" data-ride="carousel" data-interval="200" data-wrap="true">
 <body>
     <div class="container">
         <h1></h1>
@@ -141,7 +141,7 @@ body {
                     </div>
                 </div>
                 <div class="container">
-        
+
         <div id="carouselConsejos" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item">
@@ -176,7 +176,7 @@ body {
                         <p> <a style="color:white;"> Mantener la presión adecuada en los neumáticos mejora el rendimiento y la economía de combustible, así como la seguridad en la carretera.</a></p>
                     </div>
                 </div>
-       
+
                 <div class="container">
                 <div id="carouselConsejos" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -224,7 +224,7 @@ body {
                         <p> <a style="color:white;">inspeccione y cambie los filtros de aire según lo recomendado: Los filtros de aire evitan que las partículas sucias entren en el motor. Deben ser revisados y reemplazados regularmente para mantener un flujo de aire limpio.</a></p>
                     </div>
                 </div>
-                
+
                 <div class="container">
                 <div id="carouselConsejos" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -430,9 +430,9 @@ body {
                         <p> <a style="color:white;">Realiza una revisión general del motor y la transmisión cada 50.000 km. Esto permite una evaluación exhaustiva de componentes clave del vehículo para prevenir problemas graves</a></p>
                  </div>
              </div>
-        </div> 
+        </div>
      </div>
- </div>      
+ </div>
                 <!-- Agrega más consejos aquí -->
      <div class="container1">
 <body  style="background: url('/imagenes/fondo4.jpg') no-repeat center center fixed; background-size: cover;">
