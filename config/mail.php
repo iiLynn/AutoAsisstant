@@ -102,6 +102,13 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+
+    //Configuracion para el soporte
+    'soporte' => [
+        'address' => env('MAIL_SOPORTE_ADDRESS', 'soporte@example.com'),
+        'name' => env('MAIL_SOPORTE_NAME', 'Soporte de la Aplicación'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings

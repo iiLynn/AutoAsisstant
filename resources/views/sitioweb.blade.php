@@ -24,9 +24,14 @@
 *********************************/
 
         body {
-            background-color: #eee padding-bottom: 200px;
 
+            background-image: url('/imagenes/fondo4.jpg');
+            height: 100vh;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
         }
+
 
         .dropdown-menu .dropdown-item {
             color: black;
@@ -353,13 +358,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="infoServicioWeb">Requisitos<em class='bx bx-list-check'></em>
                         </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="thesis">Manuales<i class='bx bx-list-check'></i>
                         </a>
                     </li>
-                    </li>
-
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('soporte.contacto') }}">Soporte Tecnico<i
+                                class='bx bx-shield-quarter'></i>
+                        </a>
                     </li>
                 </ul>
             </div>

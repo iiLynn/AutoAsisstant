@@ -107,6 +107,11 @@
                                 </a>
                             @endif
 
+                            <a href="{{ route('formulario.contacto') }}" class="nav_link">
+                                <i class='bx bx-shield-quarter'></i>
+                                <span class="nav_name">{{ __('Soporte Tecnico') }}</span>
+                            </a>
+
                             @if (Route::has('register'))
                             @endif
                         @endauth

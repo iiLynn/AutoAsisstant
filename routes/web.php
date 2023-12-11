@@ -16,6 +16,8 @@ use App\Http\Controllers\PerfilController; // Importa el controlador PerfilContr
 use App\Http\Controllers\UserController; // Importa el controlador UserController
 use App\Http\Controllers\ServicioMecanico1Controller;
 use App\Http\Controllers\PerfilmecanicoController;
+use App\Http\Controllers\ContactoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -271,6 +273,14 @@ Route::get('/perfilmecanico/validacion', [PerfilmecanicoController::class, 'vali
 Route::post('/perfilmecanico/store', [PerfilmecanicoController::class, 'store'])->name('perfilmecanico.store');
 Route::get('/perfilmecanico/{id}', [PerfilmecanicoController::class, 'showProfile'])->name('perfilmecanico.show');
 Route::get('/perfilmecanico/validacion2', [PerfilmecanicoController::class, 'validarperfil2'])->name('perfilmecanico.validarperfil2');
+
+
+//Soporte
+Route::get('/Soporte', [ContactoController::class, 'mostrarFormulario'])->name('formulario.contacto')->middleware(['auth', 'verified']);
+Route::post('/Soporte/enviar', [ContactoController::class, 'enviarMensaje'])->name('formulario.contacto.enviar');
+
+Route::get('/soporteWeb', [ContactoController::class, 'mostrarFormularioWeb'])->name('soporte.contacto');
+Route::post('/soporteWeb/enviar', [ContactoController::class, 'enviarMensajeWeb'])->name('soporte.contacto.enviar');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
