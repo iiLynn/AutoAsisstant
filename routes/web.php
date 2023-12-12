@@ -129,6 +129,10 @@ Route::get('/inicio', function () {
     return view('inicio');
 })->name('inicio');
 
+Route::get('/crearperfil', function () {
+    return view('crearperfil');
+});
+
 Route::get('/ServiciosSitio', function () {
     return view('serviciosMecanicos.ServiciosSitio');
 });

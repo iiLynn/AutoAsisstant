@@ -367,6 +367,11 @@
                         <a class="nav-link" href="{{ route('soporte.contacto') }}">Soporte Tecnico<i
                                 class='bx bx-shield-quarter'></i>
                         </a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="crearperfil">Formulario de perfil<i class='bx bx-list-check'></i>
+                        </a>
+                    </li>
                     </li>
                 </ul>
             </div>
